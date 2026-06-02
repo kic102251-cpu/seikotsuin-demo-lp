@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>カフェLP制作サンプル | 架空デモ</title>
+  <meta name="description" content="カフェ・喫茶店向けHP/LP制作サービスの架空デモです。メニュー、店舗の雰囲気、営業時間、アクセス、予約・問い合わせ導線を1ページで分かりやすく整理した制作サンプルです。">
+  <style>
+    :root {
+      --ink: #1f2f35;
+      --muted: #65777d;
+      --white: #ffffff;
+      --paper: #f7f8f4;
+      --line: #dfe5df;
+      --forest: #1d6f5f;
+      --forest-soft: #e3f2ed;
+      --coral: #d86f55;
+      --coral-soft: #fff0eb;
+      --blue: #2f6f98;
+      --gold: #c8942f;
+      --shadow: 0 18px 42px rgba(31, 47, 53, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, system-ui, sans-serif;
+      line-height: 1.75;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+    }
+
+    .header-inner,
+    .hero-inner,
+    .section-inner,
+    .footer-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      font-weight: 900;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--forest-soft);
+      color: var(--forest);
+      font-weight: 900;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #425a61;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .header-nav a:hover {
+      color: var(--forest);
+    }
+
+    .header-cta,
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border-radius: 999px;
+      font-weight: 900;
+      text-align: center;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .header-cta,
+    .button-primary {
+      background: var(--forest);
+      color: var(--white);
+      box-shadow: 0 14px 26px rgba(29, 111, 95, 0.18);
+    }
+
+    .header-cta {
+      min-height: 40px;
+      padding: 0 18px;
+      font-size: 14px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      width: 100%;
+      padding: 13px 22px;
+      font-size: 15px;
+    }
+
+    .button-secondary {
+      border: 1px solid #c8d6d5;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--forest);
+    }
+
+    .header-cta:hover,
+    .button-primary:hover,
+    .button-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 88svh;
+      overflow: hidden;
+      padding: 104px 0 58px;
+      background-image:
+        linear-gradient(90deg, rgba(247, 248, 244, 0.98) 0%, rgba(247, 248, 244, 0.86) 48%, rgba(247, 248, 244, 0.18) 100%),
+        url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1800&q=80");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 92px;
+      background: linear-gradient(180deg, rgba(247, 248, 244, 0), var(--paper));
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 660px;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.96fr) minmax(320px, 0.74fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .hero-collage {
+      display: grid;
+      grid-template-columns: 1fr 0.82fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .hero-photo {
+      margin: 0;
+      min-height: 170px;
+      overflow: hidden;
+      border: 4px solid rgba(255, 255, 255, 0.86);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-photo:first-child {
+      grid-row: span 2;
+      min-height: 360px;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #bdd9d5;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--forest);
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(31, 47, 53, 0.08);
+    }
+
+    .demo-notice {
+      max-width: 680px;
+      margin: 16px 0 0;
+      border: 1px solid #f0b39d;
+      border-radius: var(--radius);
+      background: rgba(255, 240, 235, 0.94);
+      color: #7e3827;
+      padding: 11px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.7;
+    }
+
+    h1 {
+      margin: 26px 0 0;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 660px;
+      margin: 22px 0 0;
+      color: #344f57;
+      font-size: clamp(16px, 2.4vw, 20px);
+      line-height: 1.9;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 220px));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 690px;
+      margin-top: 32px;
+    }
+
+    .point {
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+      padding: 15px;
+      box-shadow: 0 10px 24px rgba(31, 47, 53, 0.08);
+    }
+
+    .point span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .point strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-white {
+      background: var(--white);
+    }
+
+    .section-band {
+      background: #e7f2f0;
+    }
+
+    .section-kicker {
+      margin: 0;
+      color: var(--forest);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    h2 {
+      margin: 8px 0 0;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      max-width: 760px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tag-grid,
+    .reason-grid,
+    .menu-grid,
+    .flow-grid,
+    .photo-grid,
+    .faq-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .tag-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .reason-grid,
+    .menu-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .flow-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .photo-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+
+    .tag,
+    .reason,
+    .menu-card,
+    .flow,
+    .faq-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: 0 8px 22px rgba(31, 47, 53, 0.06);
+    }
+
+    .tag {
+      padding: 18px;
+      font-weight: 900;
+    }
+
+    .tag::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 9px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .reason,
+    .menu-card,
+    .flow,
+    .faq-item {
+      padding: 22px;
+    }
+
+    .reason h3,
+    .menu-card h3,
+    .flow h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .reason p,
+    .menu-card p,
+    .flow p,
+    .faq-item p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .menu-card strong {
+      display: block;
+      margin-top: 14px;
+      color: var(--blue);
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .photo-credit {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .menu-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .menu-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .menu-body {
+      padding: 22px;
+    }
+
+    .number {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 14px;
+      border-radius: 50%;
+      background: var(--forest-soft);
+      color: var(--forest);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .photo {
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      box-shadow: var(--shadow);
+    }
+
+    .photo-small {
+      min-height: 180px;
+    }
+
+    .photo-tall {
+      grid-row: span 2;
+      min-height: 420px;
+    }
+
+    .faq-layout,
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .faq-list {
+      margin-top: 0;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 900;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .shop-info {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .shop-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 58px;
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 16px;
+      font-weight: 900;
+      box-shadow: 0 8px 22px rgba(31, 47, 53, 0.06);
+    }
+
+    form {
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    label {
+      display: block;
+      color: #3d565e;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      margin-top: 8px;
+      border: 1px solid #ccd9d8;
+      border-radius: var(--radius);
+      background: #f8faf8;
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+    }
+
+    input,
+    select {
+      height: 48px;
+      padding: 0 13px;
+    }
+
+    textarea {
+      min-height: 132px;
+      padding: 12px 13px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--forest);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(29, 111, 95, 0.12);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .form-row {
+      margin-top: 16px;
+    }
+
+    .form-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .footer {
+      background: #1f2f35;
+      color: var(--white);
+      padding: 34px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer small,
+    .footer-links {
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 800;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .header-nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 92px;
+        background-image:
+          linear-gradient(90deg, rgba(247, 248, 244, 0.98), rgba(247, 248, 244, 0.8)),
+          url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1400&q=80");
+      }
+
+      .split,
+      .hero-inner,
+      .faq-layout,
+      .contact-layout,
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-collage {
+        margin-top: 10px;
+      }
+
+      .reason-grid,
+      .menu-grid,
+      .flow-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner,
+      .hero-inner,
+      .section-inner,
+      .footer-inner {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .brand {
+        font-size: 14px;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+      }
+
+      .header-cta {
+        display: none;
+      }
+
+      .badge {
+        align-items: flex-start;
+        border-radius: var(--radius);
+      }
+
+      .demo-notice {
+        font-size: 12px;
+      }
+
+      .hero-actions,
+      .hero-points,
+      .hero-collage,
+      .tag-grid,
+      .reason-grid,
+      .menu-grid,
+      .flow-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 56px 0;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Mori Roastery Cafe">
+        <span class="brand-mark">M</span>
+        <span>
+          MORI ROASTERY CAFE
+          <small>カフェLP制作サンプル / 架空デモ</small>
+        </span>
+      </a>
+      <nav class="header-nav" aria-label="主要ナビゲーション">
+        <a href="#concept">コンセプト</a>
+        <a href="#menu">メニュー</a>
+        <a href="#space">店内紹介</a>
+        <a href="#contact">予約導線</a>
+      </nav>
+      <a class="header-cta" href="#contact">問い合わせ導線を見る</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="badge">地域カフェ・喫茶店を想定したHP/LP制作サンプル</div>
+          <p class="demo-notice">※このページはHP/LP制作サービスの架空デモです。実在のカフェではありません。</p>
+          <h1>カフェの雰囲気とメニューを、来店前の人に分かりやすく伝える1ページ。</h1>
+          <p class="hero-lead">看板メニュー、店内の雰囲気、営業時間、アクセス、予約・問い合わせ導線をスマホで見やすく整理した制作サンプルです。実案件では店舗写真やメニュー内容に合わせて作り替えます。</p>
+          <div class="hero-actions">
+            <a class="button-primary" href="#menu">サンプル構成を見る</a>
+            <a class="button-secondary" href="#contact">問い合わせ導線を見る</a>
+          </div>
+          <div class="hero-points" aria-label="サンプルの特徴">
+            <div class="point">
+              <span>目的</span>
+              <strong>来店前の迷いを減らす</strong>
+            </div>
+            <div class="point">
+              <span>構成</span>
+              <strong>写真とメニューを中心に整理</strong>
+            </div>
+            <div class="point">
+              <span>導線</span>
+              <strong>予約・地図・SNSへつなぐ</strong>
+            </div>
+          </div>
+        </div>
+        <div class="hero-collage" aria-label="カフェメニュー写真のサンプル">
+          <figure class="hero-photo">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="ラテとコーヒーを想定した写真">
+          </figure>
+          <figure class="hero-photo">
+            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=700&q=80" alt="クロワッサンを想定した写真">
+          </figure>
+          <figure class="hero-photo">
+            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80" alt="スイーツを想定した写真">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="concept">
+      <div class="section-inner split">
+        <div>
+          <p class="section-kicker">カフェページで伝えること</p>
+          <h2>味だけでなく、過ごし方まで想像できるページにします。</h2>
+          <p class="section-copy">カフェのLPでは、何が食べられるか、どんな雰囲気か、ひとりでも入りやすいか、駐車場や予約はどうかが分かると来店につながりやすくなります。このサンプルでは、実在店舗と誤認されないよう架空デモであることを明示しつつ、営業先が自店に置き換えやすい構成にしています。</p>
+        </div>
+        <div class="tag-grid">
+          <div class="tag">自家焙煎コーヒー</div>
+          <div class="tag">季節のスイーツ</div>
+          <div class="tag">ランチプレート</div>
+          <div class="tag">テイクアウト対応</div>
+          <div class="tag">席予約の導線</div>
+          <div class="tag">駐車場・アクセス案内</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="section-inner">
+        <p class="section-kicker">選ばれる理由の見せ方</p>
+        <h2>店舗の強みを、初めて見る人にも伝わる言葉にします。</h2>
+        <div class="reason-grid">
+          <article class="reason">
+            <h3>写真で雰囲気が伝わる</h3>
+            <p>外観、店内、メニュー写真を使い、来店前の不安を減らします。</p>
+          </article>
+          <article class="reason">
+            <h3>メニューが選びやすい</h3>
+            <p>看板メニュー、ランチ、スイーツ、ドリンクを分けて掲載できます。</p>
+          </article>
+          <article class="reason">
+            <h3>来店導線が分かりやすい</h3>
+            <p>地図、営業時間、駐車場、予約方法をページ下部にまとめます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="section-inner">
+        <p class="section-kicker">メニュー紹介</p>
+        <h2>価格と特徴を、スマホでも見やすい単位で掲載します。</h2>
+        <p class="section-copy">実案件では、実際のメニュー写真、税込価格、提供時間、テイクアウト可否、アレルギー表記などに合わせて調整します。</p>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=80" alt="ハンドドリップコーヒーを想定した写真">
+            <div class="menu-body">
+              <span class="number">01</span>
+              <h3>ハンドドリップコーヒー</h3>
+              <p>豆の種類や焙煎の特徴を、初めての方にも分かりやすく掲載できます。</p>
+              <strong>料金例 520円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Dessert_Fruit_Tart_%2814920013901%29.jpg?width=900" alt="季節のフルーツタルトを想定した写真">
+            <div class="menu-body">
+              <span class="number">02</span>
+              <h3>季節のタルト</h3>
+              <p>旬の果物や限定メニューを、写真と一緒に訴求する枠です。</p>
+              <strong>料金例 680円</strong>
+              <small class="photo-credit">Photo: Prayitno / CC BY 2.0</small>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80" alt="ランチプレートを想定した写真">
+            <div class="menu-body">
+              <span class="number">03</span>
+              <h3>ランチプレート</h3>
+              <p>提供時間、内容、セットドリンクの有無を見やすく整理できます。</p>
+              <strong>料金例 1,280円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=900&q=80" alt="カフェラテを想定した写真">
+            <div class="menu-body">
+              <span class="number">04</span>
+              <h3>カフェラテ</h3>
+              <p>定番ドリンクや人気メニューを、短い説明で掲載できます。</p>
+              <strong>料金例 580円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" alt="焼き菓子セットを想定した写真">
+            <div class="menu-body">
+              <span class="number">05</span>
+              <h3>焼き菓子セット</h3>
+              <p>店内利用、手土産、テイクアウト向けの商品紹介に使えます。</p>
+              <strong>料金例 750円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="https://images.unsplash.com/photo-1522992319-0365e5f11656?auto=format&fit=crop&w=900&q=80" alt="テイクアウトドリンクを想定した写真">
+            <div class="menu-body">
+              <span class="number">06</span>
+              <h3>テイクアウト</h3>
+              <p>対応メニュー、受け取り時間、事前注文の可否を掲載できます。</p>
+              <strong>実案件で設定</strong>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band" id="space">
+      <div class="section-inner">
+        <p class="section-kicker">店内紹介</p>
+        <h2>写真で、過ごす時間のイメージを作ります。</h2>
+        <p class="section-copy">カフェは写真の印象が来店判断に直結しやすいため、店内・メニュー・外観・テーブル周りをバランスよく見せます。</p>
+        <div class="photo-grid">
+          <img class="photo photo-tall" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80" alt="明るいカフェ店内を想定した写真">
+          <img class="photo photo-small" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="カフェの客席を想定した写真">
+          <img class="photo photo-small" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="カフェのドリンクとテーブルを想定した写真">
+          <img class="photo photo-small" src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=900&q=80" alt="カフェのフードメニューを想定した写真">
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <p class="section-kicker">来店までの流れ</p>
+        <h2>初めての方が迷わないよう、行動順に案内します。</h2>
+        <div class="flow-grid">
+          <article class="flow">
+            <span class="number">1</span>
+            <h3>メニューを見る</h3>
+            <p>看板メニューや価格帯を事前に確認できる構成にします。</p>
+          </article>
+          <article class="flow">
+            <span class="number">2</span>
+            <h3>営業時間を確認</h3>
+            <p>ランチ、カフェ、定休日などを分かりやすく掲載します。</p>
+          </article>
+          <article class="flow">
+            <span class="number">3</span>
+            <h3>予約・問い合わせ</h3>
+            <p>席予約、貸切相談、テイクアウト注文への導線を整理します。</p>
+          </article>
+          <article class="flow">
+            <span class="number">4</span>
+            <h3>アクセス確認</h3>
+            <p>地図、駐車場、最寄り駅からの行き方を掲載できます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="section-inner faq-layout">
+        <div>
+          <p class="section-kicker">よくある質問</p>
+          <h2>来店前に気になることを、先に整理します。</h2>
+          <p class="section-copy">実案件では、予約、支払い方法、駐車場、子連れ、テイクアウト、貸切対応など、店舗に合わせて作り替えます。</p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>席の予約はできますか？</summary>
+            <p>実案件では、電話・LINE・フォームなど、実際の予約方法に合わせて掲載します。</p>
+          </details>
+          <details class="faq-item">
+            <summary>駐車場はありますか？</summary>
+            <p>駐車場の有無、台数、近隣コインパーキング案内などを掲載できます。</p>
+          </details>
+          <details class="faq-item">
+            <summary>テイクアウトはできますか？</summary>
+            <p>対応メニュー、注文方法、受け取り時間を分かりやすく整理します。</p>
+          </details>
+          <details class="faq-item">
+            <summary>子ども連れでも利用できますか？</summary>
+            <p>ベビーカー、キッズチェア、座席間隔など、実際の設備に合わせて掲載できます。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band" id="contact">
+      <div class="section-inner contact-layout">
+        <div>
+          <p class="section-kicker">問い合わせ導線</p>
+          <h2>予約・アクセス・SNSを、迷わず選べる形にします。</h2>
+          <p class="section-copy">スマホで見たときに、来店したい人がすぐ次の行動を取れるよう、ページ下部に導線をまとめます。</p>
+          <div class="shop-info">
+            <a class="shop-link" href="tel:0000000000">電話：0000-00-0000</a>
+            <a class="shop-link" href="#contact">Instagram：実案件で設定</a>
+            <a class="shop-link" href="mailto:demo@example.jp">メール：demo@example.jp</a>
+            <div class="shop-link">営業時間：11:00-18:00 / 定休日：実案件で設定</div>
+          </div>
+        </div>
+        <form>
+          <div class="form-grid">
+            <label>
+              お名前
+              <input type="text" name="name" placeholder="山田 太郎">
+            </label>
+            <label>
+              ご連絡先
+              <input type="text" name="contact" placeholder="電話番号またはメール">
+            </label>
+          </div>
+          <label class="form-row">
+            相談内容
+            <select name="subject">
+              <option>選択してください</option>
+              <option>席予約について</option>
+              <option>メニューについて</option>
+              <option>貸切・イベントについて</option>
+              <option>HP/LP制作について相談したい</option>
+            </select>
+          </label>
+          <label class="form-row">
+            メッセージ
+            <textarea name="message" placeholder="確認したい内容をご記入ください"></textarea>
+          </label>
+          <div class="form-row">
+            <button class="button-primary" type="button">送信デモ</button>
+          </div>
+          <p class="form-note">※このフォームは架空デモです。実運用時は送信先設定、個人情報保護方針、同意チェックを追加します。</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <strong>MORI ROASTERY CAFE</strong><br>
+        <small>カフェLP制作サンプル / 架空デモ</small>
+      </div>
+      <div class="footer-links">
+        <span>制作サンプル</span>
+        <span>スマホ対応</span>
+        <span>予約導線</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
