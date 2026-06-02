@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>美容室LP制作サンプル | 架空デモ</title>
+  <meta name="description" content="美容室・ヘアサロン向けHP/LP制作サービスの架空デモです。ヘアスタイル、メニュー、スタッフ、予約導線をスマホで見やすく整理した制作サンプルです。">
+  <style>
+    :root {
+      --ink: #253038;
+      --muted: #69747c;
+      --paper: #f7f5f1;
+      --white: #ffffff;
+      --line: #e3ddd5;
+      --charcoal: #2e3a40;
+      --rose: #b96f69;
+      --rose-soft: #f8e9e7;
+      --sage: #6d8b7c;
+      --sage-soft: #e8f0ec;
+      --gold: #b18942;
+      --shadow: 0 18px 42px rgba(37, 48, 56, 0.13);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, system-ui, sans-serif;
+      line-height: 1.75;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.62);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+    }
+
+    .header-inner,
+    .hero-inner,
+    .section-inner,
+    .footer-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--rose-soft);
+      color: var(--rose);
+      font-weight: 900;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #4f5f67;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .header-nav a:hover {
+      color: var(--rose);
+    }
+
+    .header-cta,
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border-radius: 999px;
+      font-weight: 900;
+      text-align: center;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .header-cta,
+    .button-primary {
+      background: var(--charcoal);
+      color: var(--white);
+      box-shadow: 0 14px 26px rgba(37, 48, 56, 0.18);
+    }
+
+    .header-cta {
+      min-height: 40px;
+      padding: 0 18px;
+      font-size: 14px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      width: 100%;
+      padding: 13px 22px;
+      font-size: 15px;
+    }
+
+    .button-secondary {
+      border: 1px solid #d6cbc3;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--charcoal);
+    }
+
+    .header-cta:hover,
+    .button-primary:hover,
+    .button-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 88svh;
+      overflow: hidden;
+      padding: 104px 0 58px;
+      background-image:
+        linear-gradient(90deg, rgba(247, 245, 241, 0.98) 0%, rgba(247, 245, 241, 0.86) 47%, rgba(247, 245, 241, 0.18) 100%),
+        url("assets/beauty-salon/japanese-salon-hero.png");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 92px;
+      background: linear-gradient(180deg, rgba(247, 245, 241, 0), var(--paper));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.75fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 660px;
+    }
+
+    .hero-collage {
+      display: grid;
+      grid-template-columns: 1fr 0.82fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .hero-photo {
+      min-height: 170px;
+      margin: 0;
+      overflow: hidden;
+      border: 4px solid rgba(255, 255, 255, 0.86);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-photo:first-child {
+      grid-row: span 2;
+      min-height: 360px;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #dac4c0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--rose);
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(37, 48, 56, 0.08);
+    }
+
+    .demo-notice {
+      max-width: 680px;
+      margin: 16px 0 0;
+      border: 1px solid #e0b7b2;
+      border-radius: var(--radius);
+      background: rgba(248, 233, 231, 0.94);
+      color: #7d3934;
+      padding: 11px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.7;
+    }
+
+    h1 {
+      margin: 26px 0 0;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 660px;
+      margin: 22px 0 0;
+      color: #41515a;
+      font-size: clamp(16px, 2.4vw, 20px);
+      line-height: 1.9;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 220px));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 690px;
+      margin-top: 32px;
+    }
+
+    .point {
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.88);
+      padding: 15px;
+      box-shadow: 0 10px 24px rgba(37, 48, 56, 0.08);
+    }
+
+    .point span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .point strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-white {
+      background: var(--white);
+    }
+
+    .section-band {
+      background: #eee8e2;
+    }
+
+    .section-kicker {
+      margin: 0;
+      color: var(--rose);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    h2 {
+      margin: 8px 0 0;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      max-width: 760px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tag-grid,
+    .reason-grid,
+    .menu-grid,
+    .style-grid,
+    .flow-grid,
+    .staff-grid,
+    .faq-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .tag-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .reason-grid,
+    .menu-grid,
+    .staff-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .style-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .flow-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .tag,
+    .reason,
+    .menu-card,
+    .style-card,
+    .flow,
+    .staff,
+    .faq-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: 0 8px 22px rgba(37, 48, 56, 0.06);
+    }
+
+    .tag {
+      padding: 18px;
+      font-weight: 900;
+    }
+
+    .tag::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 9px;
+      border-radius: 50%;
+      background: var(--rose);
+    }
+
+    .reason,
+    .flow,
+    .staff,
+    .faq-item {
+      padding: 22px;
+    }
+
+    .reason h3,
+    .menu-card h3,
+    .flow h3,
+    .staff h3,
+    .style-card h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .reason p,
+    .menu-card p,
+    .flow p,
+    .staff p,
+    .style-card p,
+    .faq-item p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .menu-card,
+    .style-card {
+      overflow: hidden;
+    }
+
+    .menu-card img,
+    .style-card img,
+    .staff img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .style-card img {
+      aspect-ratio: 3 / 4;
+    }
+
+    .staff img {
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .menu-body,
+    .style-body,
+    .staff-body {
+      padding: 22px;
+    }
+
+    .menu-card strong {
+      display: block;
+      margin-top: 14px;
+      color: var(--rose);
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .number {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 14px;
+      border-radius: 50%;
+      background: var(--rose-soft);
+      color: var(--rose);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .salon-photo {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      box-shadow: var(--shadow);
+    }
+
+    .faq-layout,
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .faq-list {
+      margin-top: 0;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 900;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .shop-info {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .shop-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 58px;
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 16px;
+      font-weight: 900;
+      box-shadow: 0 8px 22px rgba(37, 48, 56, 0.06);
+    }
+
+    form {
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    label {
+      display: block;
+      color: #4f5f67;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      margin-top: 8px;
+      border: 1px solid #d7cdc6;
+      border-radius: var(--radius);
+      background: #fbfaf8;
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+    }
+
+    input,
+    select {
+      height: 48px;
+      padding: 0 13px;
+    }
+
+    textarea {
+      min-height: 132px;
+      padding: 12px 13px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--rose);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(185, 111, 105, 0.15);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .form-row {
+      margin-top: 16px;
+    }
+
+    .form-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .footer {
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 34px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer small,
+    .footer-links {
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 800;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .header-nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 92px;
+        background-image:
+          linear-gradient(90deg, rgba(247, 245, 241, 0.98), rgba(247, 245, 241, 0.8)),
+          url("assets/beauty-salon/japanese-salon-hero.png");
+      }
+
+      .split,
+      .hero-inner,
+      .faq-layout,
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-collage {
+        margin-top: 10px;
+      }
+
+      .reason-grid,
+      .menu-grid,
+      .style-grid,
+      .flow-grid,
+      .staff-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner,
+      .hero-inner,
+      .section-inner,
+      .footer-inner {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .brand {
+        font-size: 14px;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+      }
+
+      .header-cta {
+        display: none;
+      }
+
+      .badge {
+        align-items: flex-start;
+        border-radius: var(--radius);
+      }
+
+      .demo-notice {
+        font-size: 12px;
+      }
+
+      .hero-actions,
+      .hero-points,
+      .hero-collage,
+      .tag-grid,
+      .reason-grid,
+      .menu-grid,
+      .style-grid,
+      .flow-grid,
+      .staff-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 56px 0;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Lumi Hair Salon">
+        <span class="brand-mark">L</span>
+        <span>
+          LUMI HAIR SALON
+          <small>美容室LP制作サンプル / 架空デモ</small>
+        </span>
+      </a>
+      <nav class="header-nav" aria-label="主要ナビゲーション">
+        <a href="#concept">コンセプト</a>
+        <a href="#menu">メニュー</a>
+        <a href="#style">スタイル</a>
+        <a href="#contact">予約導線</a>
+      </nav>
+      <a class="header-cta" href="#contact">予約導線を見る</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="badge">地域美容室・ヘアサロンを想定したHP/LP制作サンプル</div>
+          <p class="demo-notice">※このページはHP/LP制作サービスの架空デモです。実在の美容室ではありません。</p>
+          <h1>美容室の雰囲気と得意なスタイルを、予約前の人に分かりやすく伝える1ページ。</h1>
+          <p class="hero-lead">ヘアスタイル写真、メニュー、スタッフ、営業時間、予約・問い合わせ導線をスマホで見やすく整理した制作サンプルです。実案件では店舗写真や施術メニューに合わせて作り替えます。</p>
+          <div class="hero-actions">
+            <a class="button-primary" href="#style">スタイルを見る</a>
+            <a class="button-secondary" href="#contact">予約導線を見る</a>
+          </div>
+          <div class="hero-points" aria-label="サンプルの特徴">
+            <div class="point">
+              <span>目的</span>
+              <strong>予約前の不安を減らす</strong>
+            </div>
+            <div class="point">
+              <span>構成</span>
+              <strong>写真と料金を見やすく整理</strong>
+            </div>
+            <div class="point">
+              <span>導線</span>
+              <strong>電話・LINE・フォームへつなぐ</strong>
+            </div>
+          </div>
+        </div>
+        <div class="hero-collage" aria-label="美容室スタイル写真のサンプル">
+          <figure class="hero-photo">
+            <img src="assets/beauty-salon/japanese-salon-hero.png" alt="日本人女性が美容室で髪を整えるタトゥーなしのイメージ写真">
+          </figure>
+          <figure class="hero-photo">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人女性のヘアスタイルを想定したタトゥーなしの写真">
+          </figure>
+          <figure class="hero-photo">
+            <img src="assets/beauty-salon/japanese-salon-hero.png" alt="日本人スタイリストによるサロン施術を想定したタトゥーなしの写真">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="concept">
+      <div class="section-inner split">
+        <div>
+          <p class="section-kicker">美容室ページで伝えること</p>
+          <h2>仕上がりの写真と、来店しやすさを同時に見せます。</h2>
+          <p class="section-copy">美容室のLPでは、どんなスタイルが得意か、料金はいくらか、誰が担当するのか、予約方法は何かが分かると問い合わせにつながりやすくなります。このサンプルでは、実在店舗と誤認されないよう架空デモであることを明示しつつ、営業先が自店に置き換えやすい構成にしています。</p>
+        </div>
+        <div class="tag-grid">
+          <div class="tag">カット</div>
+          <div class="tag">カラー</div>
+          <div class="tag">トリートメント</div>
+          <div class="tag">ヘッドスパ</div>
+          <div class="tag">メンズカット</div>
+          <div class="tag">LINE予約導線</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="section-inner">
+        <p class="section-kicker">選ばれる理由の見せ方</p>
+        <h2>初めての方が気になる情報を、写真と短い文章で整理します。</h2>
+        <div class="reason-grid">
+          <article class="reason">
+            <h3>得意なスタイルが分かる</h3>
+            <p>ショート、ボブ、透明感カラーなど、サロンの強みを視覚的に伝えます。</p>
+          </article>
+          <article class="reason">
+            <h3>料金と所要時間が見やすい</h3>
+            <p>来店前に知りたいメニュー、価格、目安時間を整理して掲載できます。</p>
+          </article>
+          <article class="reason">
+            <h3>予約方法が分かりやすい</h3>
+            <p>電話、LINE、予約サイト、フォームなど、実際の運用に合わせて導線を作れます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="section-inner">
+        <p class="section-kicker">メニュー紹介</p>
+        <h2>価格・内容・所要時間を、スマホでも見やすい単位で掲載します。</h2>
+        <p class="section-copy">実案件では、税込価格、指名料、ロング料金、セットメニュー、予約サイトへのリンクなどに合わせて調整します。</p>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <img src="assets/beauty-salon/japanese-salon-hero.png" alt="日本人女性のカットメニューを想定したタトゥーなしの写真">
+            <div class="menu-body">
+              <span class="number">01</span>
+              <h3>似合わせカット</h3>
+              <p>顔まわり、髪質、普段の扱いやすさを意識したメニュー紹介枠です。</p>
+              <strong>料金例 4,800円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人女性のヘアカラーを想定したタトゥーなしの写真">
+            <div class="menu-body">
+              <span class="number">02</span>
+              <h3>透明感カラー</h3>
+              <p>色味、質感、ダメージ配慮など、サロンの強みを伝えられます。</p>
+              <strong>料金例 7,700円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="assets/beauty-salon/japanese-salon-hero.png" alt="日本人女性のトリートメントを想定したタトゥーなしの写真">
+            <div class="menu-body">
+              <span class="number">03</span>
+              <h3>集中トリートメント</h3>
+              <p>髪の状態や希望に合わせたケアメニューとして紹介できます。</p>
+              <strong>料金例 4,400円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="assets/beauty-salon/japanese-salon-hero.png" alt="日本人女性のヘッドスパを想定したタトゥーなしの写真">
+            <div class="menu-body">
+              <span class="number">04</span>
+              <h3>ヘッドスパ</h3>
+              <p>リラックス系メニューや追加オプションを分かりやすく掲載できます。</p>
+              <strong>料金例 3,800円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人モデルのメンズカット枠に置き換え可能なタトゥーなしの写真">
+            <div class="menu-body">
+              <span class="number">05</span>
+              <h3>メンズカット</h3>
+              <p>男性向けメニュー、眉カット、スタイリング提案などを掲載できます。</p>
+              <strong>料金例 4,400円</strong>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人女性のヘアセットを想定したタトゥーなしの写真">
+            <div class="menu-body">
+              <span class="number">06</span>
+              <h3>ヘアセット</h3>
+              <p>イベント、結婚式、成人式などの予約導線を作れます。</p>
+              <strong>実案件で設定</strong>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band" id="style">
+      <div class="section-inner">
+        <p class="section-kicker">スタイルギャラリー</p>
+        <h2>予約前に仕上がりをイメージできる写真を並べます。</h2>
+        <p class="section-copy">美容室はスタイル写真が予約判断に直結しやすいため、長さ・色味・雰囲気別に見せます。</p>
+        <div class="style-grid">
+          <article class="style-card">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人女性のショートヘアを想定したタトゥーなしの写真">
+            <div class="style-body">
+              <h3>ショート</h3>
+              <p>軽さと扱いやすさを伝えるスタイル枠です。</p>
+            </div>
+          </article>
+          <article class="style-card">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人女性のボブスタイルを想定したタトゥーなしの写真">
+            <div class="style-body">
+              <h3>ボブ</h3>
+              <p>顔まわりやまとまり感を見せたい時に使えます。</p>
+            </div>
+          </article>
+          <article class="style-card">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人女性のロングヘアを想定したタトゥーなしの写真">
+            <div class="style-body">
+              <h3>ロング</h3>
+              <p>質感、カラー、ツヤ感を写真で訴求します。</p>
+            </div>
+          </article>
+          <article class="style-card">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人女性のカラーのスタイルを想定したタトゥーなしの写真">
+            <div class="style-body">
+              <h3>カラー</h3>
+              <p>透明感や季節カラーを見せる枠です。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner split">
+        <div>
+          <p class="section-kicker">店内紹介</p>
+          <h2>サロンの雰囲気が伝わると、初回来店の不安が下がります。</h2>
+          <p class="section-copy">実案件では、外観、受付、セット面、シャンプー台、スタッフ写真を掲載できます。清潔感や落ち着いた雰囲気が分かる写真を使うと、予約前の安心感につながります。</p>
+        </div>
+        <img class="salon-photo" src="assets/beauty-salon/japanese-salon-hero.png" alt="日本人スタッフがいる美容室の店内を想定したタトゥーなしの写真">
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="section-inner">
+        <p class="section-kicker">スタッフ紹介</p>
+        <h2>誰に担当してもらえるかが分かると、予約しやすくなります。</h2>
+        <div class="staff-grid">
+          <article class="staff">
+            <img src="assets/beauty-salon/japanese-salon-hero.png" alt="日本人スタイリストを想定したタトゥーなしの写真">
+            <div class="staff-body">
+              <h3>Stylist A</h3>
+              <p>ショート、ボブ、顔まわりの似合わせが得意なスタッフ紹介枠です。</p>
+            </div>
+          </article>
+          <article class="staff">
+            <img src="assets/beauty-salon/japanese-style-collage.png" alt="日本人カラー担当スタッフを想定したタトゥーなしの写真">
+            <div class="staff-body">
+              <h3>Colorist B</h3>
+              <p>透明感カラーや髪質に合わせた提案を掲載できます。</p>
+            </div>
+          </article>
+          <article class="staff">
+            <img src="assets/beauty-salon/japanese-salon-hero.png" alt="日本人受付スタッフを想定したタトゥーなしの写真">
+            <div class="staff-body">
+              <h3>Reception C</h3>
+              <p>予約や来店前の相談導線を安心して使えるように見せます。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <p class="section-kicker">来店までの流れ</p>
+        <h2>初めての方が迷わないよう、予約から来店までを整理します。</h2>
+        <div class="flow-grid">
+          <article class="flow">
+            <span class="number">1</span>
+            <h3>メニューを見る</h3>
+            <p>カット、カラー、ケアメニューの内容と価格を確認できます。</p>
+          </article>
+          <article class="flow">
+            <span class="number">2</span>
+            <h3>予約する</h3>
+            <p>電話、LINE、予約サイトなど、実際の受付方法に合わせて掲載します。</p>
+          </article>
+          <article class="flow">
+            <span class="number">3</span>
+            <h3>カウンセリング</h3>
+            <p>希望のスタイル、髪の悩み、普段の扱い方を相談する流れを示します。</p>
+          </article>
+          <article class="flow">
+            <span class="number">4</span>
+            <h3>施術・次回案内</h3>
+            <p>施術後のケアや次回予約の案内まで見せることができます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="section-inner faq-layout">
+        <div>
+          <p class="section-kicker">よくある質問</p>
+          <h2>予約前の不安を、ページ内で先に解消します。</h2>
+          <p class="section-copy">実案件では、予約変更、支払い方法、駐車場、子連れ、指名料、ロング料金など、店舗に合わせて作り替えます。</p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>予約なしでも利用できますか？</summary>
+            <p>実案件では、完全予約制か当日受付可能かを明確に掲載します。</p>
+          </details>
+          <details class="faq-item">
+            <summary>カラーの相談だけでも大丈夫ですか？</summary>
+            <p>カウンセリングの有無や、相談時に必要な情報を掲載できます。</p>
+          </details>
+          <details class="faq-item">
+            <summary>支払い方法は何に対応していますか？</summary>
+            <p>現金、クレジットカード、QR決済など、実際の対応方法を掲載します。</p>
+          </details>
+          <details class="faq-item">
+            <summary>駐車場はありますか？</summary>
+            <p>駐車場の有無、台数、近隣駐車場を分かりやすく案内できます。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band" id="contact">
+      <div class="section-inner contact-layout">
+        <div>
+          <p class="section-kicker">予約導線</p>
+          <h2>電話・LINE・予約サイトを、迷わず選べる形にします。</h2>
+          <p class="section-copy">スマホで見たときに、予約したい人がすぐ次の行動を取れるよう、ページ下部に導線をまとめます。</p>
+          <div class="shop-info">
+            <a class="shop-link" href="tel:0000000000">電話：0000-00-0000</a>
+            <a class="shop-link" href="#contact">LINE予約：実案件で設定</a>
+            <a class="shop-link" href="#contact">予約サイト：実案件で設定</a>
+            <div class="shop-link">営業時間：10:00-19:00 / 定休日：実案件で設定</div>
+          </div>
+        </div>
+        <form>
+          <div class="form-grid">
+            <label>
+              お名前
+              <input type="text" name="name" placeholder="山田 花子">
+            </label>
+            <label>
+              ご連絡先
+              <input type="text" name="contact" placeholder="電話番号またはメール">
+            </label>
+          </div>
+          <label class="form-row">
+            相談内容
+            <select name="subject">
+              <option>選択してください</option>
+              <option>カット予約について</option>
+              <option>カラー相談について</option>
+              <option>料金・所要時間について</option>
+              <option>HP/LP制作について相談したい</option>
+            </select>
+          </label>
+          <label class="form-row">
+            メッセージ
+            <textarea name="message" placeholder="確認したい内容をご記入ください"></textarea>
+          </label>
+          <div class="form-row">
+            <button class="button-primary" type="button">送信デモ</button>
+          </div>
+          <p class="form-note">※このフォームは架空デモです。実運用時は送信先設定、個人情報保護方針、同意チェックを追加します。</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <strong>LUMI HAIR SALON</strong><br>
+        <small>美容室LP制作サンプル / 架空デモ</small>
+      </div>
+      <div class="footer-links">
+        <span>制作サンプル</span>
+        <span>スマホ対応</span>
+        <span>予約導線</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
