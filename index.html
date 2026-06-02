@@ -4,10 +4,947 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>整骨院LP制作サンプル | 架空デモ</title>
-  <meta http-equiv="refresh" content="0; url=./seikotsuin-demo-lp.html">
-  <meta name="description" content="整骨院・接骨院向けHP/LP制作サービスの架空デモです。">
+  <meta name="description" content="整骨院・接骨院向けHP/LP制作サービスの架空デモです。サービス内容、初回の流れ、料金例、問い合わせ導線を1ページで分かりやすく整理した制作サンプルです。">
+  <style>
+    :root {
+      --ink: #18313a;
+      --muted: #5d7278;
+      --line: #d9e6e6;
+      --paper: #f6faf9;
+      --white: #ffffff;
+      --green: #14756f;
+      --green-soft: #e4f4f1;
+      --amber: #f3a33a;
+      --amber-soft: #fff4df;
+      --blue: #2f6f9f;
+      --shadow: 0 18px 45px rgba(24, 49, 58, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, system-ui, sans-serif;
+      line-height: 1.75;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 12px 0;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--green-soft);
+      color: var(--green);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #3c5961;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .header-nav a:hover {
+      color: var(--green);
+    }
+
+    .header-cta,
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border-radius: 999px;
+      font-weight: 800;
+      text-align: center;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .header-cta,
+    .button-primary {
+      background: var(--green);
+      color: var(--white);
+      box-shadow: 0 14px 26px rgba(20, 117, 111, 0.18);
+    }
+
+    .header-cta {
+      min-height: 40px;
+      padding: 0 18px;
+      font-size: 14px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      width: 100%;
+      padding: 13px 22px;
+      font-size: 15px;
+    }
+
+    .button-secondary {
+      border: 1px solid #b8d5d7;
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--green);
+    }
+
+    .header-cta:hover,
+    .button-primary:hover,
+    .button-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 88svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 104px 0 56px;
+      background-image: linear-gradient(90deg, rgba(246, 250, 249, 0.98) 0%, rgba(246, 250, 249, 0.86) 48%, rgba(246, 250, 249, 0.22) 100%), url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1800&q=80");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 90px;
+      background: linear-gradient(180deg, rgba(246, 250, 249, 0), var(--paper));
+      pointer-events: none;
+    }
+
+    .hero-inner,
+    .section-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #b9dfdc;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--green);
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(24, 49, 58, 0.08);
+    }
+
+    .demo-notice {
+      max-width: 680px;
+      margin: 16px 0 0;
+      border: 1px solid #ffd28b;
+      border-radius: var(--radius);
+      background: rgba(255, 244, 223, 0.92);
+      color: #71430a;
+      padding: 11px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.7;
+    }
+
+    h1 {
+      margin: 26px 0 0;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 660px;
+      margin: 22px 0 0;
+      color: #2f525b;
+      font-size: clamp(16px, 2.4vw, 20px);
+      line-height: 1.9;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 220px));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 690px;
+      margin-top: 32px;
+    }
+
+    .point {
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.84);
+      padding: 15px;
+      box-shadow: 0 10px 24px rgba(24, 49, 58, 0.08);
+    }
+
+    .point span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .point strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-kicker {
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    h2 {
+      margin: 8px 0 0;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      max-width: 760px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .tag-grid,
+    .worry-grid,
+    .service-grid,
+    .flow-grid,
+    .price-grid,
+    .staff-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .tag-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .worry-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .service-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .flow-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .price-grid,
+    .staff-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .tag,
+    .worry,
+    .service,
+    .flow,
+    .price,
+    .staff,
+    .faq-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: 0 8px 22px rgba(24, 49, 58, 0.06);
+    }
+
+    .tag {
+      padding: 18px;
+      font-weight: 800;
+    }
+
+    .tag::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 9px;
+      border-radius: 50%;
+      background: var(--amber);
+    }
+
+    .worry,
+    .service,
+    .flow,
+    .price,
+    .staff,
+    .faq-item {
+      padding: 22px;
+    }
+
+    .worry {
+      background: #ffffff;
+      border-color: #dcebea;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.7;
+    }
+
+    .section-white {
+      background: var(--white);
+    }
+
+    .section-band {
+      background: #e9f5f4;
+    }
+
+    .service h3,
+    .flow h3,
+    .price h3,
+    .staff h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .service p,
+    .flow p,
+    .price p,
+    .staff p,
+    .faq-item p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .service-number,
+    .flow-number {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 14px;
+      border-radius: 50%;
+      background: var(--green-soft);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .price strong {
+      display: block;
+      margin-top: 10px;
+      color: var(--blue);
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .clinic-photo {
+      aspect-ratio: 4 / 3;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .faq-layout,
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 800;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 58px;
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 16px;
+      font-weight: 900;
+      box-shadow: 0 8px 22px rgba(24, 49, 58, 0.06);
+    }
+
+    form {
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    label {
+      display: block;
+      color: #3c5961;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      margin-top: 8px;
+      border: 1px solid #c9dddd;
+      border-radius: var(--radius);
+      background: #f8fbfb;
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+    }
+
+    input,
+    select {
+      height: 48px;
+      padding: 0 13px;
+    }
+
+    textarea {
+      min-height: 132px;
+      padding: 12px 13px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--green);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(20, 117, 111, 0.12);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .form-row {
+      margin-top: 16px;
+    }
+
+    .form-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .footer {
+      background: #18313a;
+      color: var(--white);
+      padding: 34px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      gap: 20px;
+    }
+
+    .footer small,
+    .footer-links {
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .header-nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 92px;
+        background-image: linear-gradient(90deg, rgba(246, 250, 249, 0.97), rgba(246, 250, 249, 0.78)), url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1400&q=80");
+      }
+
+      .split,
+      .faq-layout,
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .worry-grid,
+      .service-grid,
+      .flow-grid,
+      .price-grid,
+      .staff-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .brand {
+        font-size: 14px;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+      }
+
+      .header-cta {
+        display: none;
+      }
+
+      .hero-inner,
+      .section-inner,
+      .footer-inner {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .hero {
+        padding-bottom: 44px;
+      }
+
+      .badge {
+        border-radius: var(--radius);
+        align-items: flex-start;
+      }
+
+      .demo-notice {
+        font-size: 12px;
+      }
+
+      .hero-actions,
+      .hero-points,
+      .tag-grid,
+      .worry-grid,
+      .service-grid,
+      .flow-grid,
+      .price-grid,
+      .staff-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 56px 0;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-  <p><a href="./seikotsuin-demo-lp.html">整骨院LP制作サンプルを開く</a></p>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="みらい整骨院">
+        <span class="brand-mark">M</span>
+        <span>
+          みらい整骨院
+          <small>整骨院LP制作サンプル / 架空デモ</small>
+        </span>
+      </a>
+      <nav class="header-nav" aria-label="主要ナビゲーション">
+        <a href="#about">伝えること</a>
+        <a href="#menu">施術メニュー</a>
+        <a href="#flow">初回の流れ</a>
+        <a href="#contact">問い合わせ導線</a>
+      </nav>
+      <a class="header-cta" href="#contact">相談導線を見る</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="badge">地域の整骨院・接骨院を想定したHP/LP制作サンプル</div>
+          <p class="demo-notice">※このページはHP/LP制作サービスの架空デモです。実在の整骨院ではありません。</p>
+          <h1>整骨院の強みを、初めて見る人にも分かりやすく伝える1ページ。</h1>
+          <p class="hero-lead">施術内容、通いやすさ、初回の流れ、予約・相談窓口をスマホで見やすく整理した制作サンプルです。実案件では院の方針や対応範囲に合わせて文言を調整します。</p>
+          <div class="hero-actions">
+            <a class="button-primary" href="#menu">サンプル構成を見る</a>
+            <a class="button-secondary" href="#contact">問い合わせ導線を見る</a>
+          </div>
+          <div class="hero-points" aria-label="サンプルの特徴">
+            <div class="point">
+              <span>目的</span>
+              <strong>来院前の不安を減らす</strong>
+            </div>
+            <div class="point">
+              <span>構成</span>
+              <strong>スマホで順番に読める</strong>
+            </div>
+            <div class="point">
+              <span>導線</span>
+              <strong>電話・LINE・フォームを整理</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-inner split">
+        <div>
+          <p class="section-kicker">整骨院ページで伝えること</p>
+          <h2>症状名だけでなく、院の考え方と通いやすさまで見せます。</h2>
+          <p class="section-copy">整骨院のLPでは、何を相談できるのか、初回は何をするのか、予約は必要か、費用感はどれくらいかが分かると問い合わせにつながりやすくなります。このサンプルでは、実在院と誤認されないよう架空デモであることを明示しつつ、営業先が自院に置き換えやすい構成にしています。</p>
+        </div>
+        <div class="tag-grid">
+          <div class="tag">肩まわりの不調相談</div>
+          <div class="tag">腰まわりの不調相談</div>
+          <div class="tag">姿勢・身体の使い方</div>
+          <div class="tag">スポーツ時のケア相談</div>
+          <div class="tag">産後の身体の相談</div>
+          <div class="tag">交通事故後の相談導線</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="section-inner">
+        <p class="section-kicker">このようなお悩みはありませんか？</p>
+        <h2>来院を迷っている方が、最初に探す情報を整理します。</h2>
+        <div class="worry-grid">
+          <div class="worry">どんな症状を相談してよいか分からない</div>
+          <div class="worry">初回に何をされるのか不安</div>
+          <div class="worry">仕事帰りや土曜に通えるか知りたい</div>
+          <div class="worry">料金や予約方法を事前に確認したい</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="section-inner">
+        <p class="section-kicker">施術メニューの見せ方</p>
+        <h2>サービス内容は、読者が選びやすい単位で掲載します。</h2>
+        <p class="section-copy">実案件では、院で実際に提供している施術内容、対応できる相談範囲、保険施術・自費施術の扱いに合わせて表現を調整します。断定的な改善表現は避け、相談前に必要な情報を分かりやすく伝える方針です。</p>
+        <div class="service-grid">
+          <article class="service">
+            <span class="service-number">01</span>
+            <h3>身体の状態確認</h3>
+            <p>姿勢や動き、生活習慣の聞き取りなど、初回に確認する内容を掲載できます。</p>
+          </article>
+          <article class="service">
+            <span class="service-number">02</span>
+            <h3>手技によるケア</h3>
+            <p>院の方針に合わせて、施術内容や大切にしている考え方を紹介します。</p>
+          </article>
+          <article class="service">
+            <span class="service-number">03</span>
+            <h3>電気機器・温熱機器</h3>
+            <p>導入している設備がある場合、目的や使う場面を分かりやすく説明できます。</p>
+          </article>
+          <article class="service">
+            <span class="service-number">04</span>
+            <h3>姿勢・動作アドバイス</h3>
+            <p>日常生活で気をつけるポイントやセルフケアの案内枠として使えます。</p>
+          </article>
+          <article class="service">
+            <span class="service-number">05</span>
+            <h3>スポーツ相談</h3>
+            <p>学生、社会人、部活動など、対象者別の相談導線を作れます。</p>
+          </article>
+          <article class="service">
+            <span class="service-number">06</span>
+            <h3>交通事故後の相談</h3>
+            <p>対応する場合は、相談から来院までの流れを誤解なく掲載します。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band" id="flow">
+      <div class="section-inner">
+        <p class="section-kicker">初回の流れ</p>
+        <h2>初めての方が迷わないよう、来院前後の流れを見せます。</h2>
+        <div class="flow-grid">
+          <article class="flow">
+            <span class="flow-number">1</span>
+            <h3>予約・問い合わせ</h3>
+            <p>電話、LINE、フォームなど、実際の受付方法に合わせて掲載します。</p>
+          </article>
+          <article class="flow">
+            <span class="flow-number">2</span>
+            <h3>受付・ヒアリング</h3>
+            <p>困っていること、生活背景、希望する相談内容を確認する流れを示します。</p>
+          </article>
+          <article class="flow">
+            <span class="flow-number">3</span>
+            <h3>状態確認・説明</h3>
+            <p>身体の状態や施術方針を、分かりやすく説明する姿勢を伝えます。</p>
+          </article>
+          <article class="flow">
+            <span class="flow-number">4</span>
+            <h3>施術・今後の案内</h3>
+            <p>施術後の過ごし方や次回以降の相談方法を掲載できます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <p class="section-kicker">料金・受付時間の見せ方</p>
+        <h2>問い合わせ前に知りたい情報を、見やすく整理します。</h2>
+        <div class="price-grid">
+          <article class="price">
+            <h3>初回相談</h3>
+            <strong>料金例を掲載</strong>
+            <p>実案件では保険施術・自費施術・初回料など、院の運用に合わせて表記します。</p>
+          </article>
+          <article class="price">
+            <h3>受付時間</h3>
+            <strong>平日・土曜を整理</strong>
+            <p>曜日別の受付時間、休診日、予約優先制の有無を掲載できます。</p>
+          </article>
+          <article class="price">
+            <h3>アクセス</h3>
+            <strong>駐車場・地図に対応</strong>
+            <p>車で来る方、徒歩で来る方に向けた案内を1ページ内にまとめます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="section-inner split">
+        <div>
+          <p class="section-kicker">院内紹介</p>
+          <h2>写真があると、初回来院の心理的ハードルが下がります。</h2>
+          <p class="section-copy">実案件では、外観、受付、施術スペース、スタッフ写真などを掲載できます。清潔感や通いやすさが伝わる写真を使うことで、地域の方が相談しやすいページになります。</p>
+        </div>
+        <img class="clinic-photo" src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1200&q=80" alt="明るいクリニック内を想定した写真">
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <p class="section-kicker">スタッフ紹介</p>
+        <h2>人柄と専門性を、営業先ごとの強みに合わせて見せられます。</h2>
+        <div class="staff-grid">
+          <article class="staff">
+            <h3>院長 / 柔道整復師</h3>
+            <p>院の方針、得意な相談領域、地域で大切にしていることを掲載できます。</p>
+          </article>
+          <article class="staff">
+            <h3>施術スタッフ</h3>
+            <p>初めての方にも話しやすい雰囲気を伝える紹介文を配置できます。</p>
+          </article>
+          <article class="staff">
+            <h3>受付スタッフ</h3>
+            <p>予約や問い合わせのしやすさを伝える導線として活用できます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="section-inner faq-layout">
+        <div>
+          <p class="section-kicker">よくある質問</p>
+          <h2>問い合わせ前の不安を、ページ内で先に解消します。</h2>
+          <p class="section-copy">実案件では、保険適用、予約、服装、持ち物、子連れ対応など、実際に多い質問に合わせて作り替えます。</p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>予約なしでも相談できますか？</summary>
+            <p>実案件では、予約優先制か当日受付可能かを明確に掲載します。</p>
+          </details>
+          <details class="faq-item">
+            <summary>どんな服装で行けばよいですか？</summary>
+            <p>動きやすい服装の案内や、着替えの有無を分かりやすく掲載できます。</p>
+          </details>
+          <details class="faq-item">
+            <summary>保険施術と自費施術の違いは掲載できますか？</summary>
+            <p>院の運用と関係法令に合わせて、誤解が出にくい表現で整理します。</p>
+          </details>
+          <details class="faq-item">
+            <summary>子ども連れでも行けるか案内できますか？</summary>
+            <p>キッズスペース、ベビーカー、付き添いなど、実際の設備に合わせて掲載できます。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band" id="contact">
+      <div class="section-inner contact-layout">
+        <div>
+          <p class="section-kicker">問い合わせ導線</p>
+          <h2>電話・LINE・フォームを、迷わず選べる形にします。</h2>
+          <p class="section-copy">スマホで見たときに、相談したい人がすぐ次の行動を取れるよう、ページ下部に導線をまとめます。</p>
+          <div class="contact-links">
+            <a class="contact-link" href="tel:0000000000">電話：0000-00-0000</a>
+            <a class="contact-link" href="#contact">LINE予約：実案件で設定</a>
+            <a class="contact-link" href="mailto:demo@example.jp">メール：demo@example.jp</a>
+          </div>
+        </div>
+        <form>
+          <div class="form-grid">
+            <label>
+              お名前
+              <input type="text" name="name" placeholder="山田 太郎">
+            </label>
+            <label>
+              ご連絡先
+              <input type="text" name="contact" placeholder="電話番号またはメール">
+            </label>
+          </div>
+          <label class="form-row">
+            相談内容
+            <select name="subject">
+              <option>選択してください</option>
+              <option>施術内容を知りたい</option>
+              <option>予約方法を知りたい</option>
+              <option>料金や受付時間を確認したい</option>
+              <option>HP/LP制作について相談したい</option>
+            </select>
+          </label>
+          <label class="form-row">
+            メッセージ
+            <textarea name="message" placeholder="確認したい内容をご記入ください"></textarea>
+          </label>
+          <div class="form-row">
+            <button class="button-primary" type="button">送信デモ</button>
+          </div>
+          <p class="form-note">※このフォームは架空デモです。実運用時は送信先設定、個人情報保護方針、同意チェックを追加します。</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <strong>みらい整骨院</strong><br>
+        <small>整骨院LP制作サンプル / 架空デモ</small>
+      </div>
+      <div class="footer-links">
+        <span>制作サンプル</span>
+        <span>スマホ対応</span>
+        <span>問い合わせ導線</span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
